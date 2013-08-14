@@ -1,6 +1,33 @@
+# Include your project-specific ignores in this file
+# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
+
+# Laravel
 /bootstrap/compiled.php
 /vendor
 /app/storage/*
+
+# Configuration
+/app/config/local
+/app/config/staging
+/app/config/production
+
+# Composer
 composer.phar
 composer.lock
+
+# OS
 .DS_Store
+Thumbs.db
+
+# IDEs
+.buildpath
+.project
+.settings/
+.build/
+.idea/
+nbproject/
+*.sublime-*
+
+# Other
+._*
+.#*
