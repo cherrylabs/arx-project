@@ -21,7 +21,7 @@ If your new with Laravel, we highly recommend you to read his wonderfull docs he
 
 Permissions
 
-After installing Laravel, you may need to grant the web server write permissions to the app/storage directories. See the Installation documentation for more details on configuration.
+After installing Laravel, you may need to grant the web server write permissions to the app/storage directories. See the [Installation documentation for more details on configuration](http://laravel.com/docs/installation).
 
 ## How to run ?
 
