@@ -4,14 +4,14 @@
 	"keywords": ["framework", "arx"],
     "licence" : "MIT",
 	"require": {
-        "arx/core" : "*",
+        "arx/core" : "dev-master",
 		"laravel/framework": "4.0.*",
         "cartalyst/sentry" : "*",
-        "arx/arxmin" : "*"
+        "arx/arxmin" : "dev-master"
 	},
     "require-dev" : {
         "way/generators": "dev-master",
-        "barryvdh/laravel-ide-helper": "1.*"
+        "barryvdh/laravel-ide-helper": "*"
     },
 	"autoload": {
 		"classmap": [
