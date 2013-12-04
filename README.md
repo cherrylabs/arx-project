@@ -1,19 +1,36 @@
-# Arx project for contributors
+# Arx starter project
 
-## Skilled user only !
+[![Latest Stable Version](https://poser.pugx.org/arx/core/v/stable.png)](https://packagist.org/packages/arx/core) [![Total Downloads](https://poser.pugx.org/arx/core/downloads.png)](https://packagist.org/packages/arx/core) [![Latest Unstable Version](https://poser.pugx.org/arx/core/v/unstable.png)](https://packagist.org/packages/arx/core)
 
-Default /\rx project for contributors only the arx/core and the arx/arxmin is in the workbench folder as a Git Modules so you can immediately modify and commit and push your modification to the repository of the Arx/Core and the Arx/Arxmin.
+## Requirements
 
-If you don't want to contribute or don't know how to use a gitmodules please select instead :
+- PHP > 5.3
+- Composer [follow these steps](http://getcomposer.org/doc/00-intro.md)
 
-https://github.com/cherrylabs/arx (for the full package, with documentation and full example)
-https://github.com/cherrylabs/arx-project (for a clean starter project)
+## Recommended
 
-We higly recommend you to use http://www.sourcetreeapp.com/ to manage Git submodules and commit.
+ - Nodejs to handle your asset package
+ - Bower to install package
+ - Grunt
+
+## How to install ?
+
+$ php {composer.phar link} create arx/project {Your destination} --prefer-dist
+
+Permissions
+
+After installing Laravel, you may need to grant the web server write permissions to the app/storage directories. See the Installation documentation for more details on configuration.
+
+## How to run ?
+
+If you have Mamp\Wamp or other simply run to the public folder.
+
+You can use
+
+php artisan serve
+
 
 ## How to contribute ?
 
-Thank you to contribute to the Arx project. You can use this repo instead of the original one if you want to add your correction and fixes directly in your current project.
-
-It offer a better way than the classic composer update because you can commit and update files that you need.
+If you want to contribute to the Arx project, please go on our [Arx-contrib repository](https://github.com/cherrylabs/arx-contrib)
 

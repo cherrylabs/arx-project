@@ -6,11 +6,6 @@
 /vendor
 /app/storage/*
 
-# Configuration
-/app/config/local
-/app/config/staging
-/app/config/production
-
 # Composer
 composer.phar
 composer.lock
@@ -25,7 +20,6 @@ Thumbs.db
 .settings/
 .build/
 .idea/
-nbproject/
 *.sublime-*
 
 # Other
