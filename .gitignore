@@ -4,7 +4,6 @@
 # Laravel
 /bootstrap/compiled.php
 /vendor
-/app/storage/*
 
 # Composer
 composer.phar
