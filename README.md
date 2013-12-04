@@ -2,6 +2,8 @@
 
 [![Latest Stable Version](https://poser.pugx.org/arx/core/v/stable.png)](https://packagist.org/packages/arx/core) [![Total Downloads](https://poser.pugx.org/arx/core/downloads.png)](https://packagist.org/packages/arx/core) [![Latest Unstable Version](https://poser.pugx.org/arx/core/v/unstable.png)](https://packagist.org/packages/arx/core)
 
+If your new with Laravel, we highly recommend you to read his wonderfull docs here : [http://laravel.com/docs](http://laravel.com/docs)
+
 ## Requirements
 
 - PHP > 5.3
