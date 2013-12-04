@@ -17,7 +17,7 @@ If your new with Laravel, we highly recommend you to read his wonderfull docs he
 
 ## How to install ?
 
-$ php {composer.phar link} create arx/project {Your destination} --prefer-dist
+    sudo php composer{link to you composer phar or global} create arx/project {Your folder destination} --prefer-dist
 
 Permissions
 
@@ -29,7 +29,7 @@ If you have Mamp\Wamp or other simply run to the public folder.
 
 You can use
 
-php artisan serve
+    php artisan serve
 
 
 ## How to contribute ?
