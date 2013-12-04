@@ -2,6 +2,7 @@
 	"name": "arx/project",
 	"description": "Arx project",
 	"keywords": ["framework", "arx"],
+    "licence" : "MIT",
 	"require": {
         "arx/core" : "*",
 		"laravel/framework": "4.0.*",
