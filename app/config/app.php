@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => false,
+	'debug' => true,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -112,13 +112,10 @@ return array(
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
-
-        # /\rx integrations
-        'Arx\CoreServiceProvider',
         'Arx\classes\View',
-        'Arxmin\ArxminServiceProvider',
 
         # Third partys harders
+        'Arx\CoreServiceProvider',
         'Cartalyst\Sentry\SentryServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
@@ -186,13 +183,7 @@ return array(
 		'Str'             => 'Illuminate\Support\Str',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
-		'View'            => 'Arx\facades\View',
-        'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
-
-        # Arx
-        'Asset' => 'Arx\classes\Asset',
-        'Arr' => 'Arx\classes\Arr'
-
+        'View'            => 'Arx\facades\View'
 	),
 
 );

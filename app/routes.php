@@ -12,10 +12,3 @@
 */
 
 Route::get('/', 'HomeController@showWelcome');
-
-if(!Config::has('arxmin')){
-    Route::controller('/install', 'Arxmin\\InstallController');
-}
-
-Route::controller('/assets', 'AssetsController');
-Route::controller('/packages', 'AssetsController');

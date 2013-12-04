@@ -32,7 +32,7 @@ require __DIR__.'/../vendor/autoload.php';
 |
 */
 
-$app = Arx();
+$app = new Arx();
 
 $app->bootstrap();
 

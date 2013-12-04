@@ -3,15 +3,11 @@
     "description": "Default starter project for new contributor",
     "keywords": ["arx", "framework", "starter kit"],
     "require": {
-        "raveren/kint" : "dev-master",
-        "laravel/framework": "4.0.*",
-        "cartalyst/sentry": "2.0.*",
-        "way/generators": "*"
+        "arx/core" : "*"
     },
     "license": "MIT",
     "require-dev": {
-        "barryvdh/laravel-ide-helper": "1.*",
-        "barryvdh/laravel-debugbar": "dev-master"
+
     },
     "autoload": {
         "classmap": [
@@ -20,15 +16,7 @@
             "app/models",
             "app/database/migrations",
             "app/database/seeds",
-            "app/tests",
-            "workbench/arx/arxmin/src/Arxmin"
-        ],
-        "psr-0": {
-            "Arx": "workbench/arx/core/src",
-            "Arxmin": "workbench/arx/arxmin/src"
-        },
-        "files": [
-            "workbench/arx/core/src/Arx/core.php"
+            "app/tests"
         ]
     },
     "scripts": {
