@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'debug' => true,
+	'debug' => false,
 
 	/*
 	|--------------------------------------------------------------------------
@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'JmhEspBSxIG0ML4we4TEAwBzl5Emoi8t',
+	'key' => 'AcHT0LIf3A3hpxfSRSiG5nsVaPuvjOAK',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -79,7 +79,7 @@ return array(
 	*/
 
 	'providers' => array(
-
+        # Default Laravel providers
 		'Illuminate\Foundation\Providers\ArtisanServiceProvider',
 		'Illuminate\Auth\AuthServiceProvider',
 		'Illuminate\Cache\CacheServiceProvider',
@@ -111,8 +111,17 @@ return array(
 		'Illuminate\Foundation\Providers\TinkerServiceProvider',
 		'Illuminate\Translation\TranslationServiceProvider',
 		'Illuminate\Validation\ValidationServiceProvider',
-		'Illuminate\View\ViewServiceProvider',
 		'Illuminate\Workbench\WorkbenchServiceProvider',
+
+        # /\rx integrations
+        'Arx\CoreServiceProvider',
+        'Arx\classes\View',
+        'Arxmin\ArxminServiceProvider',
+
+        # Third partys harders
+        'Cartalyst\Sentry\SentryServiceProvider',
+        'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
+        'Barryvdh\Debugbar\ServiceProvider',
 
 	),
 
@@ -177,7 +186,12 @@ return array(
 		'Str'             => 'Illuminate\Support\Str',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
-		'View'            => 'Illuminate\Support\Facades\View',
+		'View'            => 'Arx\facades\View',
+        'Sentry' => 'Cartalyst\Sentry\Facades\Laravel\Sentry',
+
+        # Arx
+        'Asset' => 'Arx\classes\Asset',
+        'Arr' => 'Arx\classes\Arr'
 
 	),
 

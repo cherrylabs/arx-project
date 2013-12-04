@@ -1,44 +1,52 @@
 {
-	"name": "arx/project",
-	"description": "Arx project",
-	"keywords": ["framework", "arx"],
-    "licence" : "MIT",
-	"require": {
-        "arx/core" : "dev-master",
-		"laravel/framework": "4.0.*",
-        "cartalyst/sentry" : "*",
-        "arx/arxmin" : "dev-master"
-	},
-    "require-dev" : {
-        "way/generators": "dev-master",
-        "barryvdh/laravel-ide-helper": "*"
+    "name": "arx/projectcontrib",
+    "description": "Default starter project for new contributor",
+    "keywords": ["arx", "framework", "starter kit"],
+    "require": {
+        "raveren/kint" : "dev-master",
+        "laravel/framework": "4.0.*",
+        "cartalyst/sentry": "2.0.*",
+        "way/generators": "*"
     },
-	"autoload": {
-		"classmap": [
-			"app/commands",
-			"app/controllers",
-			"app/models",
-			"app/database/migrations",
-			"app/database/seeds",
-			"app/tests/TestCase.php"
-		]
-	},
-	"scripts": {
-		"post-install-cmd": [
+    "license": "MIT",
+    "require-dev": {
+        "barryvdh/laravel-ide-helper": "1.*",
+        "barryvdh/laravel-debugbar": "dev-master"
+    },
+    "autoload": {
+        "classmap": [
+            "app/commands",
+            "app/controllers",
+            "app/models",
+            "app/database/migrations",
+            "app/database/seeds",
+            "app/tests",
+            "workbench/arx/arxmin/src/Arxmin"
+        ],
+        "psr-0": {
+            "Arx": "workbench/arx/core/src",
+            "Arxmin": "workbench/arx/arxmin/src"
+        },
+        "files": [
+            "workbench/arx/core/src/Arx/core.php"
+        ]
+    },
+    "scripts": {
+        "post-install-cmd": [
+            "php artisan optimize"
+        ],
+        "pre-update-cmd": [
 
-		],
-		"pre-update-cmd": [
-			
-		],
-		"post-update-cmd": [
-			"php artisan optimize"
-		],
-		"post-create-project-cmd": [
-			"php artisan key:generate"
-		]
-	},
-	"config": {
-		"preferred-install": "dist"
-	},
-	"minimum-stability": "dev"
+        ],
+        "post-update-cmd": [
+            "php artisan optimize"
+        ],
+        "post-create-project-cmd": [
+            "php artisan key:generate"
+        ]
+    },
+    "config": {
+        "preferred-install": "dist"
+    },
+    "minimum-stability": "dev"
 }
