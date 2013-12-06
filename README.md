@@ -15,22 +15,42 @@ If your new with Laravel, we highly recommend you to read his wonderfull docs he
  - Bower to install package
  - Grunt
 
+## What's bundled here ?
+
+Arx project propose a clean startup project template to start with. It includes :
+
+ - Laravel
+ - Arx Core as an extension of Laravel (see https://github.com/cherrylabs/arx-core) for more informations
+ - Usefull extra vendors package like :
+    - better debug var_dump with Kint
+    - Assets management
+    - ide-helper generator
+    - laravel debug-bar
+    - way generators
+    - orchestra admin system
+
+
 ## How to install ?
 
     sudo php composer{link to you composer phar or global} create arx/project {Your folder destination} --prefer-dist
 
-Permissions
+### Permissions
 
-After installing Laravel, you may need to grant the web server write permissions to the app/storage directories. See the [Installation documentation for more details on configuration](http://laravel.com/docs/installation).
+/!\ After installing Laravel, you may need to grant the web server write permissions to the app/storage directories. See the [Installation documentation for more details on configuration](http://laravel.com/docs/installation).
 
 ## How to run ?
 
-If you have Mamp\Wamp or other simply run to the public folder.
+If you have Mamp\Wamp or you have simply run to the localhost/{path to your project}
 
-You can use
+If you don't, you can run in the terminal (at the root of your project)
 
     php artisan serve
 
+Then you will get access to your project via : http://localhost:8000
+
+## How to report a bug or suggestion ?
+
+If you want to report a bug or a suggestion, please go to our centralized issue tracker  [our issue tracker](https://github.com/cherrylabs/arx/issues?labels=bug&milestone=&page=1&state=open)
 
 ## How to contribute ?
 
