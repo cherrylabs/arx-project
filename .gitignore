@@ -20,7 +20,3 @@ Thumbs.db
 .build/
 .idea/
 *.sublime-*
-
-# Other
-._*
-.#*

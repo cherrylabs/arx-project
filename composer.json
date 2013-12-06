@@ -21,7 +21,7 @@
     },
     "scripts": {
         "post-install-cmd": [
-            ""
+
         ],
         "pre-update-cmd": [
 
