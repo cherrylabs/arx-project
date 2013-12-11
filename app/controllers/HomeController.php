@@ -15,12 +15,14 @@ class HomeController extends BaseController {
 	|
 	*/
 
-    // See {arx/core}/views/layouts/starter
+    // See {arx/core}/src/views/layouts/starter
 
     protected $layout = 'arx::layouts.starter';
 
 	public function showWelcome()
 	{
+        //
+        $this->layout->nav = Lang::get('nav');
         $this->layout->content = 'Hello world !';
 	}
 
