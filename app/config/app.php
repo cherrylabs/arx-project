@@ -65,7 +65,7 @@ return array(
 	|
 	*/
 
-	'key' => 'AcHT0LIf3A3hpxfSRSiG5nsVaPuvjOAK',
+	'key' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -116,7 +116,6 @@ return array(
 
         # Third partys harders
         'Arx\CoreServiceProvider',
-        'Cartalyst\Sentry\SentryServiceProvider',
         'Barryvdh\LaravelIdeHelper\IdeHelperServiceProvider',
         'Barryvdh\Debugbar\ServiceProvider',
 
