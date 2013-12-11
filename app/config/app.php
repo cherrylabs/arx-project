@@ -182,7 +182,11 @@ return array(
 		'Str'             => 'Illuminate\Support\Str',
 		'URL'             => 'Illuminate\Support\Facades\URL',
 		'Validator'       => 'Illuminate\Support\Facades\Validator',
-        'View'            => 'Arx\facades\View'
+
+        //\rx required classes aliases
+        'View'            => 'Arx\facades\View',
+        'Hook'            => 'Arx\classes\Hook',
+        'Dummy'            => 'Arx\classes\Dummy',
 	),
 
 );
