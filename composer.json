@@ -22,7 +22,8 @@
     "scripts": {
         "post-install-cmd": [
             "php artisan optimize",
-            "php artisan publish"
+            "php artisan publish",
+            "bower install arx-ui"
         ],
         "post-update-cmd": [
             "php artisan clear-compiled",

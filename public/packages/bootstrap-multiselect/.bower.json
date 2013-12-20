@@ -1,0 +1,14 @@
+{
+  "name": "bootstrap-multiselect",
+  "homepage": "https://github.com/davidstutz/bootstrap-multiselect",
+  "version": "0.9.1",
+  "_release": "0.9.1",
+  "_resolution": {
+    "type": "version",
+    "tag": "v0.9.1",
+    "commit": "7af40c0ba1d44e82fbd6f49a987c81549ac91602"
+  },
+  "_source": "git://github.com/davidstutz/bootstrap-multiselect.git",
+  "_target": "*",
+  "_originalSource": "bootstrap-multiselect"
+}
