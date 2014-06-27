@@ -28,10 +28,14 @@ return array(
 	|
 	*/
 
+    'failed' => array(
+        'database' => 'mysql', 'table' => 'failed_jobs',
+    ),
+
 	'connections' => array(
 
 		'sync' => array(
-			'driver' => 'sync',
+			'driver' => 'sync'
 		),
 
 		'beanstalkd' => array(

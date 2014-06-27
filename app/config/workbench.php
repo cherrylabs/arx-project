@@ -13,7 +13,7 @@ return array(
 	|
 	*/
 
-	'name' => 'Daniel Sum',
+	'name' => '',
 
 	/*
 	|--------------------------------------------------------------------------
@@ -26,6 +26,6 @@ return array(
 	|
 	*/
 
-	'email' => 'daniel@cherrypulp.com',
+	'email' => '',
 
 );

@@ -1,5 +1,3 @@
-ui
-
 <?php
 
 return array(

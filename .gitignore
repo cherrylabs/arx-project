@@ -9,6 +9,13 @@
 composer.phar
 composer.lock
 
+# Bower and node modules
+/bower_components
+/node_modules
+
+# other stuff
+_ide_helper.php
+
 # OS
 .DS_Store
 Thumbs.db

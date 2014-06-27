@@ -19,11 +19,15 @@ class HomeController extends BaseController {
 
     protected $layout = 'arx::layouts.starter';
 
+    public $data = array();
+
+
 	public function showWelcome()
 	{
-        //
-        $this->layout->nav = Lang::get('nav');
-        $this->layout->content = 'Hello world !';
+        // Example of Assign Nav structure
+        $this->assign('nav', Lang::get('nav'));
+
+        return $this->viewMake('home');
 	}
 
 }

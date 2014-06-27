@@ -26,13 +26,15 @@ Arx project propose a clean startup project template to start with. It includes 
     - Assets management
     - ide-helper generator
     - laravel debug-bar
-    - way generators
-    - orchestra admin system
+    - grunt generator
+
+Vagrantfile
+VagrantInstall.sh
 
 
 ## How to install ?
 
-    sudo php composer{link to you composer phar or global} create arx/project {Your folder destination} --prefer-dist
+    sudo php composer{link to you composer phar or global} create arx/project {Your folder destination} --prefer-source
 
 ### Permissions
 
@@ -47,6 +49,23 @@ If you don't, you can run in the terminal (at the root of your project)
     php artisan serve
 
 Then you will get access to your project via : http://localhost:8000
+
+## Run with Vagrant (best way)
+
+You can start the project with Vagrant too.
+
+Just download vagrant [here](https://www.vagrantup.com/downloads.html)
+
+Then in your terminal at the project root just run : 
+
+    vagrant up
+    
+That's it :-)
+
+Run in the terminal : 
+
+    php artisan assets:publish arx/core
+    php artisan debugbar:publish
 
 ## How to report a bug or suggestion ?
 
