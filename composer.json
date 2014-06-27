@@ -32,7 +32,7 @@
         ],
         "post-create-project-cmd": [
             "php artisan key:generate",
-            "php artisan assets:publish arx/core",
+            "php artisan asset:publish arx/core",
             "php artisan arx:gen grunt"
         ]
     },
