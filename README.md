@@ -2,6 +2,15 @@
 
 [![Latest Stable Version](https://poser.pugx.org/arx/core/v/stable.png)](https://packagist.org/packages/arx/core) [![Total Downloads](https://poser.pugx.org/arx/core/downloads.png)](https://packagist.org/packages/arx/core) [![Latest Unstable Version](https://poser.pugx.org/arx/core/v/unstable.png)](https://packagist.org/packages/arx/core)
 
+Arx starter project is a web starter project with all you need to start : 
+
+- Laravel
+- Arx/core improvements (Tpl Engine to work with Angular, classes utilities like Image class, Markdown, Opengraph class, layout templates)
+- Angular + Bootstrap3 + common ui plugins
+- Vagrant config with PHP 5.4, benstalkd, mongo config if you need it
+- Grunt config to handle your assets
+- default bower most used plugins
+
 If your new with Laravel, we highly recommend you to read his wonderfull docs here : [http://laravel.com/docs](http://laravel.com/docs)
 
 ## Requirements
