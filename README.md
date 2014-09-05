@@ -2,14 +2,37 @@
 
 [![Latest Stable Version](https://poser.pugx.org/arx/core/v/stable.png)](https://packagist.org/packages/arx/core) [![Total Downloads](https://poser.pugx.org/arx/core/downloads.png)](https://packagist.org/packages/arx/core) [![Latest Unstable Version](https://poser.pugx.org/arx/core/v/unstable.png)](https://packagist.org/packages/arx/core)
 
-Arx starter project is a web starter project with all you need to start : 
+## What's bundled here ?
 
-- Laravel
+Arx project propose a clean startup project template to start with. It includes :
+
+ - Laravel
+ - Arx Core as an extension of Laravel (see https://github.com/cherrylabs/arx-core) for more informations
 - Arx/core improvements (Tpl Engine to work with Angular, classes utilities like Image class, Markdown, Opengraph class, layout templates)
 - Angular + Bootstrap3 + common ui plugins
 - Vagrant config with PHP 5.4, benstalkd, mongo config if you need it
 - Grunt config to handle your assets
-- default bower most used plugins
+- default bower config with most used plugins
+ - Usefull extra vendors package like :
+    - better debug var_dump with Kint
+    - Assets management
+    - ide-helper generator
+    - laravel debug-bar
+    - grunt generator
+
+
+## What's bundled here ?
+
+Arx project propose a clean startup project template to start with. It includes :
+
+ - Laravel
+ - Arx Core as an extension of Laravel (see https://github.com/cherrylabs/arx-core) for more informations
+ - Usefull extra vendors package like :
+    - better debug var_dump with Kint
+    - Assets management
+    - ide-helper generator
+    - laravel debug-bar
+    - grunt generator
 
 You can use it simply with Composer like this : 
 
@@ -28,23 +51,6 @@ If your new with Laravel, we highly recommend you to read his wonderfull docs he
  - Nodejs to handle your asset package
  - Bower to install package
  - Grunt
-
-## What's bundled here ?
-
-Arx project propose a clean startup project template to start with. It includes :
-
- - Laravel
- - Arx Core as an extension of Laravel (see https://github.com/cherrylabs/arx-core) for more informations
- - Usefull extra vendors package like :
-    - better debug var_dump with Kint
-    - Assets management
-    - ide-helper generator
-    - laravel debug-bar
-    - grunt generator
-
-Vagrantfile
-VagrantInstall.sh
-
 
 ## How to install ?
 
