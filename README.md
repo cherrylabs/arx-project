@@ -8,33 +8,23 @@ Arx project propose a clean startup project template to start with. It includes 
 
  - Laravel
  - Arx Core as an extension of Laravel (see https://github.com/cherrylabs/arx-core) for more informations
-- Arx/core improvements (Tpl Engine to work with Angular, classes utilities like Image class, Markdown, Opengraph class, layout templates)
-- Angular + Bootstrap3 + common ui plugins
-- Vagrant config with PHP 5.4, benstalkd, mongo config if you need it
-- Grunt config to handle your assets
-- default bower config with most used plugins
- - Usefull extra vendors package like :
+ - Arx/core improvements :
+    - Tpl Engine to handle angular templating (same as blade the online difference is that {{ }} are replaced with <% %> 
     - better debug var_dump with Kint
     - Assets management
     - ide-helper generator
     - laravel debug-bar
     - grunt generator
+    - Additionnal classes like a Image class helper, Dummy text generator, Hook helper etc.
+    - Startup layouts with bootstrap structure
+    - helpers for Bootstrap
+ - Angular + Bootstrap3 + common ui plugins
+ - Vagrant config with PHP 5.4, benstalkd, mongo config if you need it
+ - Grunt config to handle your assets
+ - default bower config with most used plugins
 
 
-## What's bundled here ?
-
-Arx project propose a clean startup project template to start with. It includes :
-
- - Laravel
- - Arx Core as an extension of Laravel (see https://github.com/cherrylabs/arx-core) for more informations
- - Usefull extra vendors package like :
-    - better debug var_dump with Kint
-    - Assets management
-    - ide-helper generator
-    - laravel debug-bar
-    - grunt generator
-
-You can use it simply with Composer like this : 
+To start with Arx you can simply create a project with Composer like this : 
 
     composer create arx/project your_app_name
 
