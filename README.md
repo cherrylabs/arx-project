@@ -11,6 +11,11 @@ Arx starter project is a web starter project with all you need to start :
 - Grunt config to handle your assets
 - default bower most used plugins
 
+You can use it simply with Composer like this : 
+
+    composer create arx/project your_app_name
+
+
 If your new with Laravel, we highly recommend you to read his wonderfull docs here : [http://laravel.com/docs](http://laravel.com/docs)
 
 ## Requirements
