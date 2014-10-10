@@ -119,24 +119,6 @@ echo "mysql-server mysql-server/root_password_again password $pass" | debconf-se
 apt-get install -y -qq mysql-server mysql-common mysql-client
 
 
-# Install PHPMyadmin (optional)
-
-PHPMYADMIN="1"
-
-if [ -n "$PHPMYADMIN" ] && [ ! -f /etc/phpmyadmin/config.inc.php ]; then
-	echo "Setup PhpMyAdmin"
-    echo "phpmyadmin phpmyadmin/dbconfig-install boolean true" | debconf-set-selections
-    echo "phpmyadmin phpmyadmin/app-password-confirm password root" | debconf-set-selections
-    echo "phpmyadmin phpmyadmin/mysql/admin-pass password root" | debconf-set-selections
-    echo "phpmyadmin phpmyadmin/mysql/app-pass password root" | debconf-set-selections
-    echo "phpmyadmin phpmyadmin/reconfigure-webserver multiselect apache2" | debconf-set-selections
-    apt-get install -y -qq phpmyadmin
-    echo "Include /etc/phpmyadmin/apache.conf" > /etc/apache2/apache2.conf
-    service apache2 restart
-    echo "PhpMyAdmin is now available at http://localhost:8080/phpmyadmin/\n"
-fi
-
-
 # Install Git
 # -----------
 apt-get install -y git-core
@@ -178,21 +160,6 @@ npm install -g bower
 # Install Grunt
 # -------------
 npm install -g grunt-cli
-
-# Install mongodb (optionnal)
-# ---------------
-MONGO="1"
-if [ -n "$MONGO" ]; then
-    apt-key adv --keyserver hkp://keyserver.ubuntu.com:80 --recv 7F0CEB10
-    echo 'deb http://downloads-distro.mongodb.org/repo/ubuntu-upstart dist 10gen' | sudo tee /etc/apt/sources.list.d/mongodb.list
-    sudo apt-get update
-    sudo apt-get install mongodb-org
-    sudo apt-get install -y php5-dev php5-cli php-pear
-    sudo pecl install mongo
-    touch /etc/php5/conf.d/mongo.ini
-    echo "extension=mongo.so" > /etc/php5/mods-available/mongo.ini
-    service apache2 restart
-fi
 
 # Install Redis (optional)
 
