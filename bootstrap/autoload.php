@@ -16,6 +16,8 @@ define('LARAVEL_START', microtime(true));
 
 require __DIR__.'/../vendor/autoload.php';
 
+spl_autoload_register('Arx::autoload');
+
 /*
 |--------------------------------------------------------------------------
 | Include The Compiled Class File
@@ -29,7 +31,7 @@ require __DIR__.'/../vendor/autoload.php';
 
 if (file_exists($compiled = __DIR__.'/compiled.php'))
 {
-	//require $compiled;
+	require $compiled;
 }
 
 /*

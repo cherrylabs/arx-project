@@ -28,14 +28,10 @@ return array(
 	|
 	*/
 
-    'failed' => array(
-        'database' => 'mysql', 'table' => 'failed_jobs',
-    ),
-
 	'connections' => array(
 
 		'sync' => array(
-			'driver' => 'sync'
+			'driver' => 'sync',
 		),
 
 		'beanstalkd' => array(
@@ -58,6 +54,28 @@ return array(
 			'token'   => 'your-token',
 			'queue'   => 'your-queue-name',
 		),
+
+		'redis' => array(
+			'driver' => 'redis',
+			'queue'  => 'default',
+		),
+
+	),
+
+	/*
+	|--------------------------------------------------------------------------
+	| Failed Queue Jobs
+	|--------------------------------------------------------------------------
+	|
+	| These options configure the behavior of failed queue job logging so you
+	| can control which database and table are used to store the jobs that
+	| have failed. You may change them to any database / table you wish.
+	|
+	*/
+
+	'failed' => array(
+
+		'database' => 'mysql', 'table' => 'failed_jobs',
 
 	),
 

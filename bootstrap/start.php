@@ -24,10 +24,13 @@ $app = new Illuminate\Foundation\Application;
 |
 */
 
-$env = $app->detectEnvironment(function()
-{
-    return defined('ZE_ENV') ?: Arx::env();
-});
+$env = $app->detectEnvironment(array(
+
+	'local' => array('local'),
+    'dev' => array('dev'),
+    'demo' => array('demo'),
+
+));
 
 /*
 |--------------------------------------------------------------------------

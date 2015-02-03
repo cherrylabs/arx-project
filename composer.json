@@ -3,7 +3,7 @@
     "description": "Clean starter Arx project",
     "keywords": ["arx", "framework", "starter kit"],
     "require": {
-        "arx/core" : "*",
+        "arx/core" : "4.2.x",
         "barryvdh/laravel-ide-helper": "1.*",
         "barryvdh/laravel-debugbar": "1.*"
     },
