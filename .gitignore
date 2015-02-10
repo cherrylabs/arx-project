@@ -1,29 +1,3 @@
-# Include your project-specific ignores in this file
-# Read about how to use .gitignore: https://help.github.com/articles/ignoring-files
-
-# Laravel
-/bootstrap/compiled.php
 /vendor
-
-# Composer
-composer.phar
-composer.lock
-
-# Bower and node modules
-/bower_components
 /node_modules
-
-# other stuff
-_ide_helper.php
-
-# OS
-.DS_Store
-Thumbs.db
-
-# IDEs
-.buildpath
-.project
-.settings/
-.build/
-.idea/
-*.sublime-*
+.env

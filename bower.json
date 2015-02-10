@@ -13,17 +13,8 @@
         "jquery": "1.10.2",
         "html5shiv": "*",
         "bootstrap": "~3.0.0-rc1",
-        "bootstrap-multiselect": "*",
-        "font-awesome": "latest",
         "angular": "latest",
-        "angular-resource": "~1.0.7",
-        "select2": "~3.4.1",
-        "jquery-ui": "~1.10.3",
-        "bootstrap-colorpicker": "*",
-        "bootstrap-datepicker": "*",
-        "bootstrap-timepicker": "~0.2.3",
-        "jquery-validation": "*",
-        "history.js": "~1.8.0",
-        "jquery.loader.js": "https://github.com/monkeymonk/jquery.loader.js.git"
+        "font-awesome": "latest",
+        "animate.css" : "latest"
     }
 }
