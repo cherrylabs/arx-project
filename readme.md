@@ -1,23 +1,86 @@
-## Laravel PHP Framework
+# Arx starter project for Laravel 5
 
-[![Build Status](https://travis-ci.org/laravel/framework.svg)](https://travis-ci.org/laravel/framework)
-[![Total Downloads](https://poser.pugx.org/laravel/framework/downloads.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Stable Version](https://poser.pugx.org/laravel/framework/v/stable.svg)](https://packagist.org/packages/laravel/framework)
-[![Latest Unstable Version](https://poser.pugx.org/laravel/framework/v/unstable.svg)](https://packagist.org/packages/laravel/framework)
-[![License](https://poser.pugx.org/laravel/framework/license.svg)](https://packagist.org/packages/laravel/framework)
+[![Latest Stable Version](https://poser.pugx.org/arx/core/v/stable.png)](https://packagist.org/packages/arx/core) [![Total Downloads](https://poser.pugx.org/arx/core/downloads.png)](https://packagist.org/packages/arx/core) [![Latest Unstable Version](https://poser.pugx.org/arx/core/v/unstable.png)](https://packagist.org/packages/arx/core)
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable, creative experience to be truly fulfilling. Laravel attempts to take the pain out of development by easing common tasks used in the majority of web projects, such as authentication, routing, sessions, queueing, and caching.
+## What's bundled here ?
 
-Laravel is accessible, yet powerful, providing powerful tools needed for large, robust applications. A superb inversion of control container, expressive migration system, and tightly integrated unit testing support give you the tools you need to build any application with which you are tasked.
+Arx project propose a clean startup project template to start with Laravel 5. It includes :
 
-## Official Documentation
+ - Laravel
+ - default usefull Laravel packages like : ide-helper, debugbar, etc.
+ - Arx Core as an extension of Laravel (see https://github.com/cherrylabs/arx-core) for more informations
+ - Arx/core improvements :
+    - Tpl Engine to handle angular templating (same as blade the online difference is that {{ }} are replaced with <% %> 
+    - better debug var_dump with Kint
+    - Assets management
+    - ide-helper generator
+    - laravel debug-bar
+    - grunt generator
+    - Additionnal classes like a Image class helper, Dummy text generator, Hook helper etc.
+    - Startup layouts with bootstrap structure
+    - helpers for Bootstrap
+ - Angular + Bootstrap3 + common ui plugins
+ - Vagrant config with PHP 5.4, benstalkd, mongo config if you need it
+ - Gulp default config to handle your assets
+ - default bower config with most used plugins in a startup project
 
-Documentation for the framework can be found on the [Laravel website](http://laravel.com/docs).
+To start with Arx project you can simply create a project with Composer like this : 
 
-## Contributing
+    composer create arx/project your_app_name
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](http://laravel.com/docs/contributions).
 
-### License
+If your new with Laravel, we highly recommend you to read his wonderfull docs here : [http://laravel.com/docs](http://laravel.com/docs)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](http://opensource.org/licenses/MIT)
+## Requirements
+
+- PHP > 5.4
+- Composer [follow these steps](http://getcomposer.org/doc/00-intro.md)
+
+## Recommended
+
+ - Nodejs to handle your asset package
+ - Bower to install package
+ - Gulp
+
+## How to install ?
+
+    sudo php composer{link to you composer phar or global} create arx/project {Your folder destination} --prefer-source
+
+### Permissions
+
+/!\ After installing Laravel, you may need to grant the web server write permissions to the app/storage directories. See the [Installation documentation for more details on configuration](http://laravel.com/docs/installation).
+
+## How to run ?
+
+If you have Mamp\Wamp or you have simply run to the localhost/{path to your project}
+
+If you don't, you can run in the terminal (at the root of your project)
+
+    php artisan serve
+
+Then you will get access to your project via : http://localhost:8000
+
+## Run with Vagrant (best way)
+
+You can start the project with Vagrant too.
+
+Just download vagrant [here](https://www.vagrantup.com/downloads.html)
+
+Then in your terminal at the project root just run : 
+
+    vagrant up
+    
+That's it :-)
+
+Run in the terminal : 
+
+    php artisan assets:publish arx/core
+    php artisan debugbar:publish
+
+## How to report a bug or suggestion ?
+
+If you want to report a bug or a suggestion, please go to our centralized issue tracker  [our issue tracker](https://github.com/cherrylabs/arx/issues?labels=bug&milestone=&page=1&state=open)
+
+## How to contribute ?
+
+If you want to contribute to the Arx project, please go on our [Arx-contrib repository](https://github.com/cherrylabs/arx-contrib)
