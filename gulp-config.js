@@ -47,9 +47,6 @@ module.exports = {
             ],
             'html5shiv': [
                 '<%= pkg_dir %>/html5shiv/dist'
-            ],
-            'fancybox': [
-                '<%= pkg_dir %>/fancybox/source'
             ]
         },
         shim: {
@@ -68,7 +65,7 @@ module.exports = {
                 exports : 'bootstrap'
             }
         },
-        // ???
+
         js: [
             '<%= pkg_dir %>/console-polyfill/index.js',
             // '<%= pkg_dir %>/bootstrap-sass-official/assets/javascripts/bootstrap/tooltip.js',
@@ -84,16 +81,13 @@ module.exports = {
             // '<%= pkg_dir %>/bootstrap-sass-official/assets/javascripts/bootstrap/tab.js',
             // '<%= pkg_dir %>/bootstrap-sass-official/assets/javascripts/bootstrap/transition.js',
         ],
-        // ?? pourquoi c'est pas dans plugins ?
+        // min vendor for quick testing or debug
         vendor: [
             '<%= pkg_dir %>/requirejs/require.js',
-
             '<%= pkg_dir %>/jquery/dist/jquery.min.js',
             '<%= pkg_dir %>/jquery/dist/jquery.min.map',
-
             '<%= pkg_dir %>/angular/angular.min.js',
             '<%= pkg_dir %>/angular/angular.min.js.map',
-
             '<%= pkg_dir %>/bootstrap/dist/js/bootstrap.min.js',
         ]
     },
