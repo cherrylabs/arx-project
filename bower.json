@@ -16,6 +16,7 @@
     "angular": "latest",
     "font-awesome": "latest",
     "animate.css": "latest",
-    "bootstrap": "~3.3.4"
+    "bootstrap": "~3.3.4",
+    "modernizr": "~2.8.3"
   }
 }
