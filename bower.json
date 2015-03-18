@@ -1,20 +1,21 @@
 {
-    "name": "Your-project",
-    "version": "0.0.0",
-    "main": "assets/css/main.min.css",
-    "ignore": [
-        "**/.*",
-        "node_modules",
-        "bower_components",
-        "test",
-        "tests"
-    ],
-    "dependencies": {
-        "jquery": "1.10.2",
-        "html5shiv": "*",
-        "bootstrap": "~3.0.0-rc1",
-        "angular": "latest",
-        "font-awesome": "latest",
-        "animate.css" : "latest"
-    }
+  "name": "Your-project",
+  "version": "0.0.0",
+  "main": "assets/css/main.min.css",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "jquery": "1.10.2",
+    "html5shiv": "*",
+    "bootstrap-sass": "~3.0.0",
+    "angular": "latest",
+    "font-awesome": "latest",
+    "animate.css": "latest",
+    "bootstrap": "~3.3.4"
+  }
 }

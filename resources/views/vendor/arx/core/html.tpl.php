@@ -19,6 +19,9 @@ $lang = Lang::getLocale() ?: 'en';
         <script src="https://oss.maxcdn.com/libs/respond.js/1.3.0/respond.min.js"></script>
         <![endif]-->
     @show
+    @section('css')
+        
+    @show
 </head>
 <body <?php echo  isset($body, $body['attributes']) ? HTML::attributes($body['attributes']) : '' ?>>
     @section('body')

@@ -198,20 +198,18 @@ return [
 		'Storage'   => 'Illuminate\Support\Facades\Storage',
 		'URL'       => 'Illuminate\Support\Facades\URL',
 		'Validator' => 'Illuminate\Support\Facades\Validator',
-
-
-		'HTML' => 'Illuminate\Html\HtmlFacade',
-		'Form' => 'Illuminate\Html\FormFacade',
-
-		# Arx
-		'View'      => 'Arx\facades\View',
-		'Asset' => 'Arx\classes\Asset',
-		'Arr' => 'Arx\classes\Arr',
-		'Hook' => 'Arx\classes\Hook',
-		'Dummy' => 'Arx\classes\Dummy',
-		'Arxmin' => 'Arxmin\Arxmin',
-		'FormHelper' => 'Arxmin\helpers\FormHelper',
-
+        'Controller' => 'Illuminate\Routing\Controller',
+        'HTML' => 'Illuminate\Html\HtmlFacade',
+        'Form' => 'Illuminate\Html\FormFacade',
+        # Arx
+        'View'      => 'Arx\facades\View',
+        'Asset' => 'Arx\classes\Asset',
+        'Arr' => 'Arx\classes\Arr',
+        'Hook' => 'Arx\classes\Hook',
+        'Dummy' => 'Arx\classes\Dummy',
+        'Utils' => 'Arx\classes\Utils',
+        'Arxmin' => 'Arxmin\Arxmin',
+        'FormHelper' => 'Arxmin\helpers\FormHelper',
 	],
 
 ];

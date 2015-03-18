@@ -1,5 +1,8 @@
 <?php
 
+require_once __DIR__.'/../../resources/helpers.php';
+require_once __DIR__.'/../../resources/shortcodes.php';
+
 /*
 |--------------------------------------------------------------------------
 | Application Routes
@@ -11,9 +14,9 @@
 |
 */
 
-Route::get('/', 'WelcomeController@index');
+Route::get('/', 'PageController@anyIndex');
 
-Route::get('home', 'HomeController@index');
+Route::controller('page', 'PageController');
 
 Route::controllers([
 	'auth' => 'Auth\AuthController',

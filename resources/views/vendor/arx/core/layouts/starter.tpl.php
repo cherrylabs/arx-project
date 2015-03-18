@@ -38,7 +38,7 @@ $body['attributes']['class'] = 'page-starter '.$this->body['attributes']['class'
             </div><!--/.nav-collapse -->
         </div>
     </div>
-    <div class="container starter-template">
+    <div class="container page-wrapper">
         @section('content')
         <?php
         if (isset($content)):
