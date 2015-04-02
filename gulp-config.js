@@ -96,7 +96,9 @@ module.exports = {
         './app/**/*.php',
         '!./app/storage/**/*',
         './resources/views/**/*.php',
-        './resources/assets/**/js/**/*.js',
-        './resources/assets/**/scss/**/*.scss'
+        './public/assets/js/*.js',
+        './public/assets/css/*.css'
+        './public/assets/js/**/*.js',
+        './public/assets/css/**/*.css'
     ]
 };

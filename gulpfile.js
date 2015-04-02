@@ -241,8 +241,8 @@ function handleWatch() {
     ], ['js']);
 
     gulp.watch([
-        config.src_dir + '/scss/**/*.scss',
-        config.src_dir + '/scss/**/**/*.scss',
+        config.src_dir + '/css/**/*.css',
+        config.src_dir + '/css/**/**/*.css',
     ], ['css']);
 
     gulp.watch([
