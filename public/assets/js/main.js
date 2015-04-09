@@ -54,7 +54,6 @@ $(document).ready( UTIL.init );
 /**
  * Example of include JS with gulp-include
  */
-// Example of simple include with gulp-include
 /**
  * @ngInject
  */
@@ -74,6 +73,4 @@ homeController.$inject = ['$scope'];
 
 angular.module('home', [])
     .controller('homeController', homeController);
-
-
 

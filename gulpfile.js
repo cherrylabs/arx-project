@@ -8,6 +8,8 @@ var connect = require('gulp-connect');
 var imagemin = require('gulp-imagemin');
 var gulp = require('gulp');
 var gulpif = require('gulp-if');
+var source = require('vinyl-source-stream');
+var buffer = require('vinyl-buffer');
 var gutil = require('gulp-util');
 var include = require('gulp-include');
 var ngAnnotate = require('gulp-ng-annotate');
@@ -184,9 +186,13 @@ function handleJS() {
                 single_quotes: true
             }))
             .pipe(concat( name + '.js'))
-            .pipe(gulpif(!DEVMODE, uglify({mangle:false})))
             .pipe(gulp.dest(config.public_dir + '/js'))
             .on('error', swallowErrors);
+
+        gulp.src(config.public_dir + '/js/'+name+'.js')
+            .pipe(uglify({mangle:false}))
+            .pipe(rename(name+'.min.js'))
+            .pipe(gulp.dest(config.public_dir + '/js'));
     });
 
     if(typeof config.main_files.js_folders !== 'undefined'){
@@ -205,10 +211,12 @@ function handleJS() {
                             .pipe(ngAnnotate({
                                 single_quotes: true
                             }))
-                            .on('error', swallowErrors)
-                            .pipe(gulpif(!DEVMODE, uglify({mangle:false})))
-                            .pipe(gulp.dest(config.public_dir + '/js/' + name))
-                            .pipe(gulpif(!DEVMODE, size()));
+                            .on('error', swallowErrors);
+
+                        /*gulp.src(config.public_dir + '/js/'+name+'.js')
+                            .pipe(uglify({mangle:false}))
+                            .pipe(rename(name+'.min.js'))
+                            .pipe(gulp.dest(config.public_dir + '/js'));*/
                     }
                 }
             });
