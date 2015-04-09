@@ -2,7 +2,7 @@
 
 @section('css')
 <?php
-
+# Example of using CSS Loader
 echo \Arx\classes\Load::css([
     url('assets/css/main.css'),
 ]);
@@ -10,16 +10,22 @@ echo \Arx\classes\Load::css([
 @stop
 
 @section('head')
-<meta name="DC.title" lang="en" content="Example overriding" />
+<meta name="DC.title" lang="en" content="Example of overriding" />
 @parent
 <script>
     window.__app = <?php echo Hook::getJson('__app'); ?>;
 </script>
+
+<!--[if lt IE 8]>
+<script src="<?php echo url('assets/js/plugins/modernizr/modernizr.js'); ?>"></script>
+<![endif]-->
 @stop
 
 @section('js')
 <?php
+# Example of using JS Loader
 echo \Arx\classes\Load::js([
+    'assets/js/plugins.js',
     'assets/js/main.js'
 ]);
 ?>

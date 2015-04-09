@@ -1,20 +1,4 @@
 /**
- * Define here your dependencies
- *
- * @type {exports}
- */
-
-var config = require('./config');
-
-var _ = require('lodash');
-
-var $ = jQuery = require('jquery');
-
-require('angular', {expose: 'angular'});
-
-var bootstrap = require('bootstrap');
-
-/**
  * App function loader
  *
  * @type {{common: {init: Function}, home: {init: Function}}}
@@ -32,7 +16,7 @@ var App = {
     },
 
     /**
-     * @todo Clean template logic move to functions
+     * @example This will be trigger when a page have class tpl-home in the body
      */
     tpl_home: {
         init : function(){
@@ -65,22 +49,9 @@ var UTIL = {
     }
 };
 
-angular.element(document).ready(UTIL.loadEvents);
-
-angular.module('home', [])
-    .controller('homeController', homeController);
+$(document).ready( UTIL.init );
 
 /**
- * @ngInject
+ * Example of include JS with gulp-include
  */
-function homeController($scope) {
-
-    $scope.items = [];
-
-    $scope.addItem = function(){
-        $scope.items.push({
-            title : $scope.item.title,
-            author : $scope.name
-        })
-    }
-}
+//= include components/home/home.js

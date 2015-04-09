@@ -1,14 +1,4 @@
-module.exports = function(){
-    /**
-     * home controller
-     */
-    angular.module('home')
-        .controller('homeController', homeController);
+//= include ./homeController.js
 
-    /**
-     * @ngInject
-     */
-    function homeController($scope) {
-        console.log('YEaah');
-    }
-}
+angular.module('home', [])
+    .controller('homeController', homeController);

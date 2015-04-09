@@ -1,4 +1,3 @@
-// Example of simple include with gulp-include
 /**
  * @ngInject
  */
@@ -13,9 +12,3 @@ function homeController($scope) {
         })
     }
 }
-homeController.$inject = ['$scope'];
-
-
-angular.module('home', [])
-    .controller('homeController', homeController);
-

@@ -10,7 +10,7 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "1.10.2",
+    "jquery": "~1.10.0",
     "html5shiv": "*",
     "bootstrap-sass": "~3.0.0",
     "angular": "latest",
