@@ -211,6 +211,7 @@ function handleJS() {
                             .pipe(ngAnnotate({
                                 single_quotes: true
                             }))
+                            .pipe(gulp.dest(config.public_dir + '/js/'+name+'/'))
                             .on('error', swallowErrors);
 
                         /*gulp.src(config.public_dir + '/js/'+name+'.js')
