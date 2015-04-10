@@ -214,10 +214,10 @@ function handleJS() {
                             .pipe(gulp.dest(config.public_dir + '/js/'+name+'/'))
                             .on('error', swallowErrors);
 
-                        /*gulp.src(config.public_dir + '/js/'+name+'.js')
+                        gulp.src(config.public_dir + '/js/'+name+'/'+ files[i] + '.js')
                             .pipe(uglify({mangle:false}))
-                            .pipe(rename(name+'.min.js'))
-                            .pipe(gulp.dest(config.public_dir + '/js'));*/
+                            .pipe(rename(files[i]+'.min.js'))
+                            .pipe(gulp.dest(config.public_dir + '/js/'+name));
                     }
                 }
             });
