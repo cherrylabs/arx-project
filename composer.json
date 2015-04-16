@@ -9,9 +9,10 @@
   "license": "MIT",
   "type": "project",
   "require": {
-    "arx/core": "dev-develop-5",
+    "arx/core": "dev-master",
+    "illuminate/html": "5.x",
+    "illuminate/workbench": "dev-master",
     "doctrine/dbal": "~2.3",
-    "illuminate/html": "*",
     "kriswallsmith/assetic" : "*",
     "fzaninotto/faker" : "*",
     "barryvdh/laravel-ide-helper": "~2.0",
@@ -24,7 +25,8 @@
   },
   "autoload": {
     "classmap": [
-      "database"
+      "database",
+      "workbench"
     ],
     "psr-4": {
       "App\\": "app/controllers/",

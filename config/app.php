@@ -136,7 +136,9 @@ return [
 		'Illuminate\Validation\ValidationServiceProvider',
 		'Illuminate\View\ViewServiceProvider',
 
-		'Illuminate\Html\HtmlServiceProvider',
+        # Missing L4 features
+        'Illuminate\Html\HtmlServiceProvider',
+        'Illuminate\Workbench\WorkbenchServiceProvider',
 
 		/*
 		 * Arx Service Providers...

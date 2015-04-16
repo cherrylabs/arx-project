@@ -7,7 +7,7 @@ var App = {
 
     common: {
         init: function() {
-
+            console.log('Common init from main.js');
         },
         is_touch_device : function(){
             return !!('ontouchstart' in window) // works on most browsers
@@ -20,7 +20,7 @@ var App = {
      */
     tpl_home: {
         init : function(){
-
+            console.log('INIT from main.js@tpl_home trigged by body.tpl-home class');
         }
     }
 };
@@ -49,7 +49,7 @@ var UTIL = {
     }
 };
 
-$(document).ready( UTIL.init );
+$(document).ready( UTIL.loadEvents );
 
 /**
  * Example of include JS with gulp-include

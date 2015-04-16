@@ -25,8 +25,8 @@ echo \Arx\classes\Load::css([
 <?php
 # Example of using JS Loader
 echo \Arx\classes\Load::js([
-    'assets/js/plugins.min.js',
-    'assets/js/main.min.js'
+    'assets/js/plugins.js',
+    'assets/js/main.js'
 ]);
 ?>
 @stop

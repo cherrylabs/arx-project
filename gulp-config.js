@@ -2,29 +2,34 @@ module.exports = {
     /**
      * File paths configuration
      */
-    base_url: 'assets',
-    src_dir: 'resources/assets',
-    public_dir: 'public/assets',
-    pkg_dir: 'bower_components',
-    plugins_dir: 'public/assets/plugins',
+    src_dir: 'resources/assets', // This is your work folder when magic happens
+    public_dir: 'public/assets', // This is the destinary folders where files are compiled or processed
+    pkg_dir: 'bower_components', // This is the bower directory when bower copy the files
+    plugins_dir: 'public/assets/plugins', // This is where plugins where copied
+    js_dir: 'js', // default js folder name, you can rename it "scripts" if you want
+    css_dir: 'css', // default css folder name, you can rename it "stylesheets" if you want
+    img_dir: 'img', // default img folder name, you can rename it "images" if you want
+    fonts_dir: 'fonts', // default fonts folder name, you can rename it "fontzy" if you want
 
     /**
-     * Main files that you want concatenate and compress in one file for perf
+     * Main files that you want concatenate and compress in one file
+     *
      */
-    main_files : {
+    main_files: {
 
-        css : {
+        css: {
             /**
              * Here you can put your main stylesheets
              *
-             * For convenient reason is better to import css inside your main.scss
+             * For perf reason is better to import css inside one main.scss
+             *
              */
-            main : [
+            main: [
                 '<%= src_dir  %>/scss/main.scss'
             ]
 
             /**
-             * You can add as many files as you need the key = the filename
+             * You can add as many files as you need : the key (ex plugins) = the filename
              *
              * @example if you want to separate plugins :
              *
@@ -35,15 +40,17 @@ module.exports = {
              */
         },
 
-        js : {
+        js: {
             /**
              * Here you can put the main plugins that you use everywhere
              *
              * It will be concatened and compressed in one file
              *
-             * For debug reason is more convenient to separate plugins from your own code
+             * For debug reason is more convenient to separate plugins from your own code =>
+             *
+             * it will create a plugins.js and main.js that you need to add to your html page
              */
-            plugins : [
+            plugins: [
                 "<%= pkg_dir %>/jquery/jquery.js",
                 "<%= pkg_dir %>/bootstrap/dist/js/bootstrap.min.js",
                 "<%= pkg_dir %>/angular/angular.js"
@@ -52,35 +59,38 @@ module.exports = {
             /**
              * Here you can put your main script
              */
-            main : [
+            main: [
                 '<%= src_dir  %>/js/main.js'
             ]
         },
 
         /**
          * Extra folders that you need to process
+         *
+         * By default if you have for example : components/home/home.js in your src_folder
+         * => it will create a components/home.js in the public dir
          */
-        js_folders : {
-            "components" : "*",
-            "shared" : "*"
+        js_folders: {
+            "components": "*",
+            "shared": "*"
         },
 
-        fonts : [
+        fonts: [
             '<%= pkg_dir %>/bootstrap-sass-official/assets/fonts/bootstrap/*',
             '<%= pkg_dir %>/font-awesome/fonts/*'
         ],
 
-        img : [
+        img: [
             //example : 'vendor/arx/core/public/dist/img/arx-logo.png'
         ],
 
         /**
          * Extra folders that you need to copy inside
          */
-        copy : {
+        copy: {
             /*'docs' : [
-                'vendor/arx/core/README.md'
-            ]*/
+             'vendor/arx/core/README.md'
+             ]*/
         }
     },
 
@@ -92,14 +102,6 @@ module.exports = {
      *
      */
     plugin_files: {
-
-        /**
-         * Fonts to copy in the dist/fonts folders
-         */
-        fonts: [
-            '<%= pkg_dir %>/bootstrap-sass-official/assets/fonts/bootstrap/*',
-            '<%= pkg_dir %>/font-awesome/fonts/*'
-        ],
 
         /**
          * Copy plugins to the public path in a public_dir/plugins folders
@@ -137,9 +139,24 @@ module.exports = {
         }
     },
 
+    watch: {
+        'css': [
+            '<%= src_dir %>/scss/*.scss',
+            '<%= src_dir %>/scss/**/*.scss'
+        ],
+        'js': [
+            '<%= src_dir %>/js/*.js',
+            '<%= src_dir %>/js/**/*.js'
+        ],
+        'dev': [
+            './gulpfile.js',
+            './gulp-config.js'
+        ]
+    },
+
     /**
-    * Files that you want to check the change and that trig a LiveReload
-    */
+     * Files that you want to check the change and that trig a LiveReload
+     */
     livereload: [
         './app/**/*.php',
         './resources/views/**/*.php',

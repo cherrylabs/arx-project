@@ -37,17 +37,11 @@ if (args.prod || args.production) {
 }
 
 /**
- * Gulp Tasks
+ * Gulp accessibles Tasks
  */
 gulp.task('default', function () {
     gulp.start('build', 'watch');
 });
-
-gulp.task('css', handleCSS);
-gulp.task('js', handleJS);
-gulp.task('copy', handleCopy);
-gulp.task('img', handleImg);
-gulp.task('watch', handleWatch);
 
 gulp.task('dev', function () {
     gulp.start('css', 'js', 'copy');
@@ -77,17 +71,29 @@ if (args.watch) {
 }
 
 /**
+ * Tasks @see handleXXX function to see what happens
+ */
+
+gulp.task('css', handleCSS);
+gulp.task('js', handleJS);
+gulp.task('img', handleImg);
+gulp.task('watch', handleWatch);
+gulp.task('copy', handleCopy);
+
+/**
  * Handlers
  * =========>
  */
 function handleCopy() {
     var file = '';
 
-    // Copy main_files fonts inside public_dir/fonts
+    /**
+     * Copy main fonts to the fonts directory
+     */
     for (var i = 0, len = config.main_files.fonts.length; i < len; i++) {
         file = config.main_files.fonts[i].replace('<%= pkg_dir %>', config.pkg_dir);
         gulp.src(file)
-            .pipe(gulp.dest(config.public_dir + '/fonts'));
+            .pipe(gulp.dest(config.public_dir + '/' + config.fonts_dir));
     }
 
     /**
@@ -135,13 +141,13 @@ function handleCopy() {
 
 function handleImg(){
 
-    gulp.src(config.main_files.img)
+    gulp.src(smrtr(config.main_files.img, config))
         .pipe(imagemin({
             progressive: true,
             interlaced: true,
             svgoPlugins: [{removeUnknownsAndDefaults: false}]
         }))
-        .pipe(gulp.dest(config.public_dir + '/img'));
+        .pipe(gulp.dest(config.public_dir + '/' + config.img_dir));
 }
 
 
@@ -156,7 +162,7 @@ function handleCSS() {
             //.pipe(gulpif(!DEVMODE, csso()))
             .pipe(gulpif(!DEVMODE, size()))
             .pipe(gulpif(DEVMODE, sourcemaps.write('./')))
-            .pipe(gulp.dest(config.public_dir + '/css'));
+            .pipe(gulp.dest(config.public_dir + '/' + config.css_dir));
     });
 }
 
@@ -186,23 +192,25 @@ function handleJS() {
                 single_quotes: true
             }))
             .pipe(concat( name + '.js'))
-            .pipe(gulp.dest(config.public_dir + '/js'))
+            .pipe(gulp.dest(config.public_dir + '/'+ config.js_dir))
             .on('error', swallowErrors);
 
-        gulp.src(config.public_dir + '/js/'+name+'.js')
-            .pipe(uglify({mangle:false}))
-            .pipe(rename(name+'.min.js'))
-            .pipe(gulp.dest(config.public_dir + '/js'));
+        if(!DEVMODE){
+            gulp.src(config.public_dir + '/' + config.js_dir +'/'+name+'.js')
+                .pipe(uglify({mangle:false}))
+                .pipe(rename(name+'.min.js'))
+                .pipe(gulp.dest(config.public_dir + '/' + config.js_dir));
+        }
     });
 
     if(typeof config.main_files.js_folders !== 'undefined'){
 
         _.forEach(config.main_files.js_folders, function(items, name) {
 
-            fs.readdir(config.src_dir + '/js/'+name+'/', function (err, files) {
+            fs.readdir(config.src_dir + '/'+config.js_dir+'/'+name+'/', function (err, files) {
                 if (files) {
                     for (var i = 0, len = files.length; i < len; i++) {
-                        gulp.src(config.src_dir + '/js/'+name+'/' + files[i] + '/' + files[i] + '.js')
+                        gulp.src(config.src_dir + '/'+ config.js_dir+'/'+name+'/' + files[i] + '/' + files[i] + '.js')
                             /*.pipe(browserify({
                                 debug: false,
                                 shim : shim
@@ -211,13 +219,15 @@ function handleJS() {
                             .pipe(ngAnnotate({
                                 single_quotes: true
                             }))
-                            .pipe(gulp.dest(config.public_dir + '/js/'+name+'/'))
+                            .pipe(gulp.dest(config.public_dir + '/'+ config.js_dir+'/'+name+'/'))
                             .on('error', swallowErrors);
 
-                        gulp.src(config.public_dir + '/js/'+name+'/'+ files[i] + '.js')
-                            .pipe(uglify({mangle:false}))
-                            .pipe(rename(files[i]+'.min.js'))
-                            .pipe(gulp.dest(config.public_dir + '/js/'+name));
+                        if(!DEVMODE){
+                            gulp.src(config.public_dir + '/'+ config.js_dir+'/'+name+'/'+ files[i] + '.js')
+                                .pipe(uglify({mangle:false}))
+                                .pipe(rename(files[i]+'.min.js'))
+                                .pipe(gulp.dest(config.public_dir + '/'+ config.js_dir +'/'+name));
+                        }
                     }
                 }
             });
@@ -230,20 +240,15 @@ function handleWatch() {
 
     gulp.start('server');
 
-    gulp.watch([
-        config.src_dir + '/js/*.js',
-        config.src_dir + '/js/**/*.js'
-    ], ['js']);
+    var watch_css = smrtr(config.watch.css, config);
+    var watch_js = smrtr(config.watch.css, config);
+    var watch_dev = smrtr(config.watch.dev, config);
 
-    gulp.watch([
-        config.src_dir + '/css/**/*.css',
-        config.src_dir + '/css/**/**/*.css',
-    ], ['css']);
+    gulp.watch(watch_js, ['js']);
 
-    gulp.watch([
-        './gulpfile.js',
-        './gulp-config.js',
-    ], ['dev']);
+    gulp.watch(watch_css, ['css']);
+
+    gulp.watch(watch_dev, ['dev']);
 
     gulp.watch(config.livereload)
         .on('change', function (file) {
@@ -258,13 +263,13 @@ function handleWatch() {
 
 /**
  * Helpers method
- * ========>
+ * ==============>
  */
 
 /**
  * Smrtr function
  *
- * Little method to apply dynamic variables
+ * Little method to apply dynamic variables from gulp-config
  */
 function smrtr(arr, data) {
 
