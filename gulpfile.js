@@ -235,13 +235,16 @@ function handleJS() {
     }
 }
 
+/**
+ * Files Watch Handler
+ */
 function handleWatch() {
     DEVMODE = true;
 
     gulp.start('server');
 
     var watch_css = smrtr(config.watch.css, config);
-    var watch_js = smrtr(config.watch.css, config);
+    var watch_js = smrtr(config.watch.js, config);
     var watch_dev = smrtr(config.watch.dev, config);
 
     gulp.watch(watch_js, ['js']);
