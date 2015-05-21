@@ -10,13 +10,14 @@ Arx project propose a clean startup project template to start with Laravel 5. It
  - default usefull Laravel packages like : ide-helper, debugbar, etc.
  - Arx Core as an extension of Laravel (see https://github.com/cherrylabs/arx-core) for more informations
  - Arx/core improvements :
-    - Tpl Engine to handle angular templating (same as blade the online difference is that {{ }} are replaced with <% %>
+    - Tpl Engine to handle angular templating (same as blade the only difference with blade is that {{ }} are replaced with <% %> for angular convenience
     - body attributes auto class attributes based on Paul Irish structure
     - better debug var_dump with Kint
     - Assets management
     - ide-helper generator
     - laravel debug-bar
-    - grunt generator
+    - gulp generator
+    - angular generator (controller, directive, filter etc.)
     - Additionnal classes like a Image class helper, Dummy text generator, Hook helper etc.
     - Startup layouts with bootstrap structure
     - helpers for Bootstrap
