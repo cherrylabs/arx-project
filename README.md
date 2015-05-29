@@ -58,15 +58,21 @@ If your new with Laravel, we highly recommend you to read his wonderfull docs he
 
 ## How to run ?
 
-If you have Mamp\Wamp or you have simply run to the localhost/{path to your project}. Example : localhost/myapp/public
+### Run with Wamp|Mamp|Xampp etc.
 
-If you don't, you can run in the terminal (at the root of your project)
+If you have Mamp\Wamp you have to simply run to the localhost/{path to your project}. Example : localhost/myapp/public
+
+### Run with your PHP CLI in the terminal
+
+If you don't, you can run in the terminal* (at the root of your project)
 
     php artisan serve
 
 Then you will get access to your project via : http://localhost:8000
 
-## Run with Vagrant (best way)
+* this option requires you to install the mcrypt extension [see](http://laravel.com/docs/5.0)
+
+### Run with Vagrant (best way)
 
 You can start the project with Vagrant too.
 
