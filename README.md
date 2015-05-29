@@ -10,7 +10,7 @@ Arx project propose a clean startup project template to start with Laravel 5. It
  - default usefull Laravel packages like : ide-helper, debugbar, etc.
  - Arx Core as an extension of Laravel (see https://github.com/cherrylabs/arx-core) for more informations
  - Arx/core improvements :
-    - Tpl Engine to handle angular templating (same as blade the only difference with blade is that {{ }} are replaced with <% %> for angular convenience
+    - Tpl Engine to handle angular templating (exactly the same as blade the only difference with blade is that {{ }} are replaced with <% %> for better angular convenience and you have a helper $this->help() that you can call in a view to know what variables is availables
     - body attributes auto class attributes based on Paul Irish structure
     - better debug var_dump with Kint
     - Assets management
@@ -18,9 +18,11 @@ Arx project propose a clean startup project template to start with Laravel 5. It
     - laravel debug-bar
     - gulp generator
     - angular generator (controller, directive, filter etc.)
-    - Additionnal classes like a Image class helper, Dummy text generator, Hook helper etc.
+    - Additionnal classes like a Image class helper, Dummy text generator, Hook helper, Opengraph reader etc.
     - Startup layouts with bootstrap structure
     - helpers for Bootstrap
+    - Api usefull class and helpers
+    - Useful traits to use in your model to handle fileupload, etc.
  - Angular + Bootstrap3 + common ui plugins
  - Vagrant config with PHP 5.4, benstalkd, mongo config if you need it
  - Gulp default config to handle your assets
@@ -47,6 +49,8 @@ If your new with Laravel, we highly recommend you to read his wonderfull docs he
 ## How to install ?
 
     sudo php composer{link to you composer phar or global} create arx/project {Your folder destination} --prefer-source
+    # Example
+    php composer create arx/project myapp --prefer-source
 
 ### Permissions
 
@@ -54,7 +58,7 @@ If your new with Laravel, we highly recommend you to read his wonderfull docs he
 
 ## How to run ?
 
-If you have Mamp\Wamp or you have simply run to the localhost/{path to your project}
+If you have Mamp\Wamp or you have simply run to the localhost/{path to your project}. Example : localhost/myapp/public
 
 If you don't, you can run in the terminal (at the root of your project)
 
@@ -72,12 +76,41 @@ Then in your terminal at the project root just run :
 
     vagrant up
     
-That's it :-)
+That's it, you can access via http://localhost:8080 :-)
+
+## How to install assets
+
+Arx project uses Gulp and Bower to make things pretty. You need to install [Node](http://nodejs.org/), [Bower](http://bower.io/#install-bower) and [Gulp](https://github.com/gulpjs/gulp/blob/master/docs/getting-started.md).
+
+Then at root of your project
 
 Run in the terminal : 
 
+    bower install
+    npm install
+
+### Philosophy
+
+Elixir of Laravel is great but not usable in other case than a Laravel project and it's not really as flexible than using directly Gulp plugins...
+
+Also, we decide to separate the config and the process logic so you can more easily copy-paste config assets in an other project and make a different processing of that.
+
+That's why you have 2 files : 
+
+- gulp-config.js
+- gulpfile.js
+
+Gulp-config it's almost at 90% where you will handle your assets. It handles most of the assets cases and offers a simplest way to make dynamic variables with <%= %> or organize your assets.
+
+You can read the gulp-config for further informations of how it works.
+
+### Optionnal
+
+Arx come with an optionnal assets package for the demo or quick app prototyping. You can publish the assets with
+
     php artisan assets:publish arx/core
-    php artisan debugbar:publish
+
+It will create a folder in public/packages/arx/core folder. But you can delete it if you don't need it.
 
 ## How to report a bug or suggestion ?
 
