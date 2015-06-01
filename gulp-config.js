@@ -139,6 +139,9 @@ module.exports = {
         }
     },
 
+    /**
+    * Files that will be watched
+    */
     watch: {
         'css': [
             '<%= src_dir %>/scss/*.scss',
@@ -160,7 +163,7 @@ module.exports = {
     livereload: [
         './app/**/*.php',
         './resources/views/**/*.php',
-        './public/assets/css/*.css',
-        './public/assets/js/*.js'
+        './<%= public_dir %>/css/*.css',
+        './<%= public_dir %>/js/*.js'
     ]
 };
