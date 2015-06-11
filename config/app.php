@@ -206,6 +206,7 @@ return [
         # Arx
         'View'      => 'Arx\facades\View',
         'Asset' => 'Arx\classes\Asset',
+        'Shortcode' => 'Arx\facades\Shortcode',
         'Arr' => 'Arx\classes\Arr',
         'Hook' => 'Arx\classes\Hook',
         'Dummy' => 'Arx\classes\Dummy',

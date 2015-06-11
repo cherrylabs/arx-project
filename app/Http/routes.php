@@ -1,5 +1,8 @@
 <?php
 
+/**
+ * Load helpers and shortcodes
+ */
 require_once __DIR__.'/../../resources/helpers.php';
 require_once __DIR__.'/../../resources/shortcodes.php';
 

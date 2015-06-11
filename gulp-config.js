@@ -119,7 +119,7 @@ module.exports = {
         },
 
         /**
-         * Declare your Require dependencies here if you want to use Browserify (Optionnal)
+         * Declare your Require dependencies here if you want to use Browserify or RequireJs (Optionnal)
          */
         shim: {
             jquery: {
