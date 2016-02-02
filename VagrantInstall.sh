@@ -86,7 +86,7 @@ echo "--- Installing and configuring Xdebug ---"
 sudo apt-get install -y php5-xdebug
 
 cat << EOF | sudo tee -a /etc/php5/mods-available/xdebug.ini
-xdebug.scream=1
+xdebug.scream=0
 xdebug.cli_color=1
 xdebug.show_local_vars=1
 EOF
@@ -123,11 +123,6 @@ apt-get install -y -qq mysql-server mysql-common mysql-client
 # -----------
 apt-get install -y git-core
 
-# Install SVN (optional)
-# -----------
-# apt-get install subversion
-
-
 # Install Composer
 # ----------------
 curl -s https://getcomposer.org/installer | php
@@ -140,15 +135,6 @@ apt-get install -y python-software-properties python g++ make
 add-apt-repository -y ppa:chris-lea/node.js
 apt-get update
 apt-get install -y nodejs
-
-echo "--- Installing Ruby ---"
-
-\curl -L https://get.rvm.io | bash -s stable
-source /usr/local/rvm/scripts/rvm
-rvm requirements
-rvm install ruby
-rvm use ruby --default
-rvm rubygems current
 
 # Upgrade NPM
 npm update -g npm
