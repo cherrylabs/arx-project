@@ -1,281 +1,323 @@
+/* jshint ignore: start */
 /**
- * Gulps Variables
+ * Angular ES6 Webpack Babel
  */
-var args = require('yargs').argv;
-var browserify = require('gulp-browserify');
-var concat = require('gulp-concat');
-var connect = require('gulp-connect');
-var imagemin = require('gulp-imagemin');
-var gulp = require('gulp');
-var gulpif = require('gulp-if');
-var source = require('vinyl-source-stream');
-var buffer = require('vinyl-buffer');
-var gutil = require('gulp-util');
-var include = require('gulp-include');
-var ngAnnotate = require('gulp-ng-annotate');
-var notify = require('gulp-notify');
-var rename = require('gulp-rename');
-var sass = require('gulp-sass');
-var size = require('gulp-filesize');
-var sourcemaps = require('gulp-sourcemaps');
-var expect = require('gulp-expect-file');
-var todo = require('gulp-todo');
-var uglify = require('gulp-uglify');
-var watch = require('gulp-watch');
+var config = require('./gulpconfig.js');
 var _ = require('lodash');
 var fs = require('fs');
+var del = require('del');
+var args = require('yargs').argv;
+var gulp = require('gulp-help')(require('gulp'));
+var $ = require('gulp-load-plugins')();
+
+// apply template paths
+config = applyConfiguration(config);
+
+// write .jshintrc from config
+fs.writeFile('.jshintrc', JSON.stringify(config.jshint));
+
+// hide console notify text
+$.notify.logLevel(0);
+
+
+gulp.task('default', 'Default tasks', ['clean'], function () {
+    gulp.start('copy', 'css', 'js', 'img', 'html');
+
+    if (args.watch) {
+        gulp.start('watch');
+    }
+
+    gulp.src('./').pipe($.notify(' ʕ•ᴥ•ʔ <( Build complete! ) '));
+    $.util.log($.util.colors.inverse(' ʕ•ᴥ•ʔ <( Build complete! ) '));
+});
+
 
 /**
- * Include the config file
+ * Clean task
  */
-var config = require('./gulp-config.js');
+gulp.task('clean', 'Clean dist folder', function (callback) {
+    del([ config.dir.dist + '/*' ], callback);
+});
 
-var DEVMODE = true;
-
-if (args.prod || args.production) {
-    DEVMODE = false;
-}
 
 /**
- * Gulp accessibles Tasks
+ * CSS task
  */
-gulp.task('default', function () {
-    gulp.start('build', 'watch');
+gulp.task('css', 'Handle CSS', function () {
+    _.each(config.files.css, function (value, name) {
+        // force array
+        if (Object.prototype.toString.call(value) !== '[object Array]') {
+            value = [value];
+        }
+
+        gulp.src(value)
+            .pipe($.plumber({
+                errorHandler: swallowErrors
+            }))
+
+            .pipe($.sourcemaps.init())
+            .pipe($.sass({errLogToConsole: true}))
+            .pipe($.autoprefixer(config.autoprefixer))
+            .pipe($.rename(name))
+            .pipe($.sourcemaps.write('./', { includeContent: true }))
+            .pipe(gulp.dest(config.dir.dist + '/css'));
+
+        gulp.src(value)
+            .pipe($.plumber({
+                errorHandler: swallowErrors
+            }))
+
+            .pipe($.sourcemaps.init())
+            .pipe($.sass({errLogToConsole: true}))
+            .pipe($.autoprefixer(config.autoprefixer))
+            .pipe($.csso({ disableStructureMinimization: false }))
+            .pipe($.rename({ extname: '.min.css' }))
+            .pipe($.sourcemaps.write('./', { includeContent: true }))
+            .pipe(gulp.dest(config.dir.dist + '/css'));
+    });
 });
 
-gulp.task('dev', function () {
-    gulp.start('css', 'js', 'copy');
 
-    gulp.src('./').pipe(notify(' ʕ•ᴥ•ʔ <( Dev build complete! ) '));
-    gutil.log(gutil.colors.inverse(' ʕ•ᴥ•ʔ <( Dev build complete! ) '));
+/**
+ * JSHINT task
+ */
+gulp.task('jshint', false, function () {
+    // @todo Allow to specify source
+    gulp.src([
+        config.dir.src + '/js/**/*.js',
+        '!**/plugins/**'
+    ])
+        .pipe($.plumber({
+            errorHandler: swallowErrors
+        }))
+        .pipe($.jshint())
+        .pipe($.jshint.reporter('jshint-stylish'))
+        .pipe($.jshint.reporter('fail'));
 });
 
-gulp.task('build', function () {
-    DEVMODE = false;
-    gulp.start('css', 'js', 'copy', 'img');
-    gulp.src('./').pipe(notify(' ʕ•ᴥ•ʔ <( Build complete! ) '));
-    gutil.log(gutil.colors.inverse(' ʕ•ᴥ•ʔ <( Build complete! ) '));
+
+/**
+ * JS task
+ */
+gulp.task('js', 'Handle JS', ['jshint'], function () {
+    _.each(config.files.js, function (value, name) {
+        // force array
+        if (Object.prototype.toString.call(value) !== '[object Array]') {
+            value = [value];
+        }
+
+        gulp.src(value)
+            .pipe($.plumber({
+                errorHandler: swallowErrors
+            }))
+
+            .pipe($.sourcemaps.init())
+            .pipe($.concat(name))
+            .pipe($.sourcemaps.write('./', { includeContent: true }))
+            .pipe(gulp.dest(config.dir.dist + '/js'));
+
+        gulp.src(value)
+            .pipe($.plumber({
+                errorHandler: swallowErrors
+            }))
+
+            .pipe($.sourcemaps.init())
+            .pipe($.concat(name))
+            .pipe($.uglify())
+            .pipe($.rename({ extname: '.min.js' }))
+            .pipe($.sourcemaps.write('./', { includeContent: true }))
+            .pipe(gulp.dest(config.dir.dist + '/js'));
+    });
+
+    // webpack
+    _.each(config.files.webpack, function (value, name) {
+        // force array
+        if (Object.prototype.toString.call(value) !== '[object Array]') {
+            value = [value];
+        }
+
+        gulp.src(value)
+            .pipe($.plumber({
+                errorHandler: swallowErrors
+            }))
+
+            .pipe($.sourcemaps.init())
+            .pipe($.concat(name))
+            .pipe($.webpackSourcemaps(_.extend(config.webpack, {
+                watch: !!args.watch,
+                output: {
+                    filename: name
+                }
+            })))
+            .pipe($.sourcemaps.write('./', { includeContent: false }))
+            .pipe(gulp.dest(config.dir.dist + '/js'));
+
+        /*gulp.src(value)
+            .pipe($.plumber({
+                errorHandler: swallowErrors
+            }))
+
+            .pipe($.sourcemaps.init())
+            .pipe($.concat(name))
+            .pipe($.webpackSourcemaps(_.extend(config.webpack, {
+                watch: !!args.watch,
+                output: {
+                    filename: name.replace(/.js$/, '.min.js')
+                }
+            })))
+            .pipe($.uglify())
+            .pipe($.sourcemaps.write('./', { includeContent: false }))
+            .pipe(gulp.dest(config.dir.dist + '/js'));*/
+    });
 });
 
-gulp.task('server', function () {
-    connect.server({
+
+/**
+ * HTML task
+ */
+gulp.task('html', 'Handle Angular HTML templates', function () {
+    _.each(config.files.html, function (value, name) {
+        // force array
+        if (Object.prototype.toString.call(value) !== '[object Array]') {
+            value = [value];
+        }
+
+        gulp.src(value)
+            .pipe($.plumber({
+                errorHandler: swallowErrors
+            }))
+
+            .pipe($.minifyHtml(config.minifyhtml))
+            .pipe(gulp.dest(config.dir.dist + '/html'));
+    });
+});
+
+
+/**
+ * IMG task
+ */
+gulp.task('img', 'Handle IMG', function () {
+    // @todo Allow to specify source
+    gulp.src(config.dir.src + '/img/*')
+        .pipe($.plumber({
+            errorHandler: swallowErrors
+        }))
+
+        .pipe($.imagemin(config.imagemin))
+        // @todo Allow to specify destination
+        .pipe(gulp.dest(config.dir.dist + '/img'));
+});
+
+
+/**
+ * Copy Task
+ */
+gulp.task('copy', 'Copy files', function () {
+    var file;
+
+    _.each(config.copy, function (value, name) {
+        // force array
+        if (Object.prototype.toString.call(value) !== '[object Array]') {
+            value = [value];
+        }
+
+        if (isFile(name, true)) {
+            gulp.src(value)
+                .pipe($.plumber({
+                    errorHandler: swallowErrors
+                }))
+
+                .pipe($.if(/[.]html$/, $.minifyHtml(config.minifyhtml)))
+                .pipe($.if(/[.]css$/, $.csso()))
+                .pipe($.if(/[.]js$/, $.uglify()))
+                .pipe($.rename(name))
+                .pipe(gulp.dest(config.dir.dist));
+        } else {
+            gulp.src(value)
+                .pipe($.plumber({
+                    errorHandler: swallowErrors
+                }))
+
+                .pipe($.if(/[.]html$/, $.minifyHtml(config.minifyhtml)))
+                .pipe($.if(/[.]css$/, $.csso()))
+                .pipe($.if(/[.]js$/, $.uglify()))
+                .pipe(gulp.dest(config.dir.dist + '/' + name));
+        }
+    });
+});
+
+
+/**
+ * Server task
+ */
+gulp.task('server', false, function () {
+    // @todo Put config object into gulpconfig.js
+    $.connect.server({
         root: '.',
+        //port: 8000,
         livereload: true
     });
 });
 
-// allow to use `--watch` to start watch
-// ex. `gulp css --watch`
-if (args.watch) {
-    gulp.start('watch');
-}
 
 /**
- * Tasks @see handleXXX function to see what happens
+ * Watch task
  */
+gulp.task('watch', 'Default tasks', ['server'], function () {
+    gulp.watch(config.watch.scss, ['css']);
+    gulp.watch(config.watch.js, ['js']);
+    gulp.watch(config.watch.html, ['html']);
+    gulp.watch(config.watch.img, ['img']);
 
-gulp.task('css', handleCSS);
-gulp.task('js', handleJS);
-gulp.task('img', handleImg);
-gulp.task('watch', handleWatch);
-gulp.task('copy', handleCopy);
-
-/**
- * Handlers
- * =========>
- */
-function handleCopy() {
-    var file = '';
-
-    /**
-     * Copy main fonts to the fonts directory
-     */
-    for (var i = 0, len = config.main_files.fonts.length; i < len; i++) {
-        file = config.main_files.fonts[i].replace('<%= pkg_dir %>', config.pkg_dir);
-        gulp.src(file)
-            .pipe(gulp.dest(config.public_dir + '/' + config.fonts_dir));
-    }
-
-    /**
-     * Copy extra folders
-     */
-    _.forEach(config.main_files.copy, function(items, name) {
-        if (Object.prototype.toString.call(config.main_files.copy[name]) !== '[object Array]') {
-            config.main_files.copy[name] = [config.main_files.copy[name]];
-        }
-
-        for (var i = 0, len = config.main_files.copy[name].length; i < len; i++) {
-            file = smrtr(config.main_files.copy[name][i], config);
-
-            if (fs.lstatSync(file).isDirectory()) {
-                gulp.src(file + '/**/*', {base: file})
-                    .pipe(gulp.dest(config.public_dir + '/' + name));
-            } else {
-                gulp.src(file)
-                    .pipe(gulp.dest(config.public_dir + '/' + name));
-            }
-        }
-    });
-
-    /**
-    * Copy Plugins to public_dir/plugins
-    */
-    for (var plugin in config.plugin_files.copy) {
-        if (Object.prototype.toString.call(config.plugin_files.copy[plugin]) !== '[object Array]') {
-            config.plugin_files.copy[plugin] = [config.plugin_files.copy[plugin]];
-        }
-
-        for (var i = 0, len = config.plugin_files.copy[plugin].length; i < len; i++) {
-            file = smrtr(config.plugin_files.copy[plugin][i], config);
-
-            if (fs.lstatSync(file).isDirectory()) {
-                gulp.src(file + '/**/*', {base: file})
-                    .pipe(gulp.dest(config.public_dir + '/plugins/' + plugin));
-            } else {
-                gulp.src(file)
-                    .pipe(gulp.dest(config.public_dir + '/plugins/' + plugin));
-            }
-        }
-    }
-}
-
-function handleImg(){
-
-    gulp.src(smrtr(config.main_files.img, config))
-        .pipe(imagemin({
-            progressive: true,
-            interlaced: true,
-            svgoPlugins: [{removeUnknownsAndDefaults: false}]
-        }))
-        .pipe(gulp.dest(config.public_dir + '/' + config.img_dir));
-}
-
-
-function handleCSS() {
-
-    _.forEach(config.main_files.css, function(items, name) {
-        gulp.src(config.src_dir + '/scss/'+name+'.scss')
-            .pipe(gulpif(DEVMODE, sourcemaps.init()))
-            .pipe(sass({
-                errLogToConsole: true
-            }))
-            //.pipe(gulpif(!DEVMODE, csso()))
-            .pipe(gulpif(!DEVMODE, size()))
-            .pipe(gulpif(DEVMODE, sourcemaps.write('./')))
-            .pipe(gulp.dest(config.public_dir + '/' + config.css_dir));
-    });
-}
-
-
-function handleJS() {
-
-    //console.log('Config', config);
-    if(typeof config.plugin_files.shim !== 'undefined'){
-        var shim = config.plugin_files.shim;
-    } else {
-        var shim = {};
-    }
-    
-    // Concat files in main_files
-    _.forEach(config.main_files.js, function(items, name) {
-
-        items = smrtr(items, config);
-
-        gulp.src(items)
-            .pipe(expect(items))
-            /*.pipe(browserify({
-                debug: false,
-                shim : shim
-            }))*/
-            .pipe(include())
-            .pipe(ngAnnotate({
-                single_quotes: true
-            }))
-            .pipe(concat( name + '.js'))
-            .pipe(gulp.dest(config.public_dir + '/'+ config.js_dir))
-            .on('error', swallowErrors);
-
-        if(!DEVMODE){
-            gulp.src(config.public_dir + '/' + config.js_dir +'/'+name+'.js')
-                .pipe(uglify({mangle:false}))
-                .pipe(rename(name+'.min.js'))
-                .pipe(gulp.dest(config.public_dir + '/' + config.js_dir));
-        }
-    });
-
-    if(typeof config.main_files.js_folders !== 'undefined'){
-
-        _.forEach(config.main_files.js_folders, function(items, name) {
-
-            fs.readdir(config.src_dir + '/'+config.js_dir+'/'+name+'/', function (err, files) {
-                if (files) {
-                    for (var i = 0, len = files.length; i < len; i++) {
-                        gulp.src(config.src_dir + '/'+ config.js_dir+'/'+name+'/' + files[i] + '/' + files[i] + '.js')
-                            /*.pipe(browserify({
-                                debug: false,
-                                shim : shim
-                            }))*/
-                            .pipe(include())
-                            .pipe(ngAnnotate({
-                                single_quotes: true
-                            }))
-                            .pipe(gulp.dest(config.public_dir + '/'+ config.js_dir+'/'+name+'/'))
-                            .on('error', swallowErrors);
-
-                        if(!DEVMODE){
-                            gulp.src(config.public_dir + '/'+ config.js_dir+'/'+name+'/'+ files[i] + '.js')
-                                .pipe(uglify({mangle:false}))
-                                .pipe(rename(files[i]+'.min.js'))
-                                .pipe(gulp.dest(config.public_dir + '/'+ config.js_dir +'/'+name));
-                        }
-                    }
-                }
-            });
-        });
-    }
-}
-
-/**
- * Files Watch Handler
- */
-function handleWatch() {
-    DEVMODE = true;
-
-    gulp.start('server');
-
-    var watch_css = smrtr(config.watch.css, config);
-    var watch_js = smrtr(config.watch.js, config);
-    var watch_dev = smrtr(config.watch.dev, config);
-
-    gulp.watch(watch_js, ['js']);
-
-    gulp.watch(watch_css, ['css']);
-
-    gulp.watch(watch_dev, ['dev']);
+    var timer = null;
 
     gulp.watch(config.livereload)
         .on('change', function (file) {
-            gulp.src(file.path)
-                .pipe(connect.reload())
-                .pipe(notify(' ʕ•ᴥ•ʔ <( Reload! ) '));
-            gutil.log(gutil.colors.inverse(' ʕ•ᴥ•ʔ <( Reload! ) '));
+
+            if(timer){
+                clearTimeout(timer);
+            }
+
+            if(!gulp.isRunning) {
+                timer = setTimeout(function(){
+                    gulp.src(file.path).pipe($.connect.reload());
+                    $.util.log($.util.colors.inverse('Live Reload ᕙ(`▽´)ᕗ '));
+                }, 250);
+            }
         });
 
-    gutil.log(gutil.colors.inverse(' ( Ready to work! )> ᕙ(`▽´)ᕗ '));
+    $.util.log($.util.colors.inverse(' ( Ready to work! )> ᕙ(`▽´)ᕗ '));
+});
+
+
+/**
+ * Helpers
+ */
+
+function applyConfiguration(current, config) {
+    if (!config) {
+        config = current;
+    }
+
+    _.forEach(current, function (value, key) {
+        if (_.isString(value)) {
+            current[key] = smrtr(value, config);
+        } else {
+            applyConfiguration(value, config);
+        }
+    });
+
+    return current;
 }
 
-/**
- * Helpers method
- * ==============>
- */
+function isFile(name, strict) {
+    var re = /(?:\.([^.]+))?$/;
+    var extension = re.exec(name)[1];
 
-/**
- * Smrtr function
- *
- * Little method to apply dynamic variables from gulp-config
- */
+    return strict ? !!extension : extension;
+}
+
 function smrtr(arr, data) {
-
     if (typeof arr === 'string') {
         return _.template(arr)(data);
     }
@@ -285,21 +327,43 @@ function smrtr(arr, data) {
     });
 }
 
-/**
- * Little method to output better errors
- *
- * @param error
- */
 function swallowErrors(error) {
     var message = '';
 
-    if (error && error.toString()) {
-        message = error.toString();
+    // handle specific plugin
+    switch (error.plugin) {
+        case 'gulp-sass':
+            message = $.util.template('<%= error.message %> <%= error.fileName %> @ line <%= error.lineNumber %>', {
+                error: error,
+                file: null
+            });
+            break;
+
+        default:
+            message = error.message;
     }
 
-    gutil.log(gutil.colors.red('✖', message));
+    $.util.log($.util.colors.red('✖', message));
 
-    gulp.src('./').pipe(notify('✖ Error'));
+    // Details
+    if (args.v || args.verbose) {
+        $.util.log(error);
+    }
+
+    var notification = {
+        title: '✖ Error (╥﹏╥)',
+        message: message
+    };
+
+    if (error.fileName) {
+        notification.message = '<%= options.filename %> @ line <%= options.line %>';
+        notification.templateOptions = {
+            filename: '/' + error.fileName.split('/').pop(),
+            line: error.lineNumber || '?'
+        };
+    }
+
+    gulp.src('./').pipe($.notify(notification));
 
     this.emit('end');
 }

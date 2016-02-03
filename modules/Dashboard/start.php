@@ -1,0 +1,27 @@
+<?php
+
+/*
+|--------------------------------------------------------------------------
+| Register Namespaces And Routes
+|--------------------------------------------------------------------------
+|
+| When a module starting, this file will executed automatically. This helps
+| to register some namespaces like translator or view. Also this file
+| will load the routes file for each module. You may also modify
+| this file as you want.
+|
+*/
+
+/**
+ * Here is an example of how to register a menu
+ */
+Arxmin::registerMenu(array(
+    'name' => 'Dashboard',
+    'ref' => 'dashboard',
+    'type' => 'module',
+    'ico' => 'fa-home',
+    'link' => url('/arxmin/modules/dashboard'),
+    'position' => 0,
+));
+
+require __DIR__ . '/Http/routes.php';

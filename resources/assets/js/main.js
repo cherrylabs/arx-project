@@ -1,57 +1,123 @@
+'use strict';
+
+// required external components
+import angular from 'angular';
+import $ from 'jquery';
+
+// required utils components
+import Debug from './lib/debug';
+import './lib/helpers';
+
+// required project specific components
+import Manager from './components/manager';
+import Pickup from './components/pickup';
+
+// defaults modules
+let dependencies = [];
+
+// expose Debug class
+window.Debug = Debug;
+
 /**
- * App function loader
- *
- * @type {{common: {init: Function}, home: {init: Function}}}
+ * Modules (`$.modules`) are used with the DOM routing
  */
-var App = {
+$.modules = {
+        'common': () => {
+        // preload
+        $(document.body).addClass('loading');
 
-    common: {
-        init: function() {
-            console.log('Common init from main.js');
-        },
-        is_touch_device : function(){
-            return !!('ontouchstart' in window) // works on most browsers
-                || !!('onmsgesturechange' in window); // works on ie10
-        }
-    },
+// inform Google Analytics of the change
+if (typeof window.ga !== 'undefined') {
+    let tracked = document.location.href.replace(document.location.origin, '');
+    window.ga('send', 'pageview', tracked);
+}
 
-    /**
-     * @example This will be trigger when a page have class tpl-home in the body
-     */
-    tpl_home: {
-        init : function(){
-            console.log('INIT from main.js@tpl_home trigged by body.tpl-home class');
-        }
+return {
+    isInitialized: false,
+
+    load() {
+    // ensure to execute common function once
+    if (!this.isInitialized) {
+        Debug.bench('common:load');
+        this.isInitialized = true;
+    }
+},
+
+finalize() {
+    angular.module('app', dependencies);
+
+    // bootstrap the app (async)
+    angular.bootstrap(document, ['app']);
+
+    setTimeout(function () {
+        $(document.body).removeClass('loading');
+    }, 0);
+
+    Debug.bench('common:finalize', true);
+}
+};
+},
+
+'tpl_pages_home': () => {
+    return {
+        load() {
+        // init Home Carousel
+        $('#homeCarousel').carousel();
     }
 };
+},
 
-/**
- * The routing fires all common scripts, followed by the page specific scripts.
- *
- * @type {{fire: Function, loadEvents: Function}}
- */
-var UTIL = {
-    fire: function (func, funcname, args) {
-        var namespace = App;
-        funcname = (funcname === undefined) ? 'init' : funcname;
-        if (func !== '' && namespace[func] && typeof namespace[func][funcname] === 'function') {
-            namespace[func][funcname](args);
-        }
-    },
-    loadEvents: function () {
-        UTIL.fire('common');
 
-        $.each(document.body.className.replace(/-/g, '_').split(/\s+/), function (i, classnm) {
-            UTIL.fire(classnm);
+
+'tpl_pages_service': () => {
+    return {
+        load() {
+        // init Owl Carousel
+        $('.owl-carousel').owlCarousel({
+            items : 4,
+            itemsDesktop : [1199,3],
+            itemsDesktopSmall : [979,3],
+            navigation: true,
+            navigationText: ['<i class="fa fa-angle-left"></i>', '<i class="fa fa-angle-right"></i>'],
+            pagination: false,
         });
-
-        UTIL.fire('common', 'finalize');
     }
 };
+},
 
-$(document).ready( UTIL.loadEvents );
+'tpl_user_manager': () => {
+    return {
+        load() {
+        Debug.bench('tpl_pickup:load');
+        dependencies.push('manager');
+    }
+};
+},
 
 /**
- * Example of include JS with gulp-include
+ * Load Pickup page
+ *
+ * @returns {{load}}
  */
-//= include components/home/home.js
+'tpl_user_pickup': () => {
+    return {
+        load() {
+        Debug.bench('tpl_pickup:load');
+
+        // add pickup module declaration
+        dependencies.push('pickup');
+    }
+};
+}
+};
+
+
+$(document).ready(() => {
+    $.fire('common');
+
+$.loadEvents($(document.body).attr('class'), (classnm) => {
+    $.fire(classnm);
+});
+
+$.fire('common', 'finalize');
+});

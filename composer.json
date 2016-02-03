@@ -1,38 +1,28 @@
 {
   "name": "arx/project",
-  "description": "Starter project for Laravel 5",
-  "keywords": [
-    "framework",
-    "laravel",
-    "arx"
-  ],
+  "description": "Arx Starter Project Template",
+  "keywords": ["framework", "laravel", "Saas", "Starter Kit"],
   "license": "MIT",
   "type": "project",
   "require": {
-    "arx/core": "dev-master",
-    "illuminate/html": "5.x",
-    "illuminate/workbench": "dev-master",
-    "doctrine/dbal": "~2.3",
-    "kriswallsmith/assetic" : "*",
-    "fzaninotto/faker" : "*",
-    "barryvdh/laravel-ide-helper": "~2.0",
-    "filp/whoops": "~1.0",
-    "barryvdh/laravel-debugbar": "~2.0"
+    "php": ">=5.5.9",
+    "laravel/framework": "5.2.*",
+    "arx/core": "5.2.*",
+    "arx/arxmin": "5.2.2"
   },
   "require-dev": {
+    "fzaninotto/faker": "~1.4",
+    "mockery/mockery": "0.9.*",
     "phpunit/phpunit": "~4.0",
-    "phpspec/phpspec": "~2.1"
+    "symfony/css-selector": "2.8.*|3.0.*",
+    "symfony/dom-crawler": "2.8.*|3.0.*"
   },
   "autoload": {
     "classmap": [
       "database",
-      "workbench"
+      "modules"
     ],
     "psr-4": {
-      "App\\": "app/controllers/",
-      "App\\": "app/models/",
-      "App\\": "app/interfaces/",
-      "App\\": "app/traits/",
       "App\\": "app/"
     }
   },
@@ -42,17 +32,24 @@
     ]
   },
   "scripts": {
+    "post-root-package-install": [
+      "php -r \"copy('.env.example', '.env');\""
+    ],
+    "post-create-project-cmd": [
+
+    ],
     "post-install-cmd": [
+
+    ],
+    "pre-update-cmd": [
 
     ],
     "post-update-cmd": [
 
-    ],
-    "post-create-project-cmd": [
-      "php -r \"copy('.env.example', '.env');\""
     ]
   },
   "config": {
     "preferred-install": "dist"
-  }
+  },
+  "minimum-stability" : "dev"
 }

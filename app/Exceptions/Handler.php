@@ -1,17 +1,23 @@
-<?php namespace App\Exceptions;
+<?php
+
+namespace App\Exceptions;
 
 use Exception;
+use Illuminate\Database\Eloquent\ModelNotFoundException;
+use Symfony\Component\HttpKernel\Exception\HttpException;
+use Symfony\Component\HttpKernel\Exception\NotFoundHttpException;
 use Illuminate\Foundation\Exceptions\Handler as ExceptionHandler;
 
-class Handler extends ExceptionHandler {
-
+class Handler extends ExceptionHandler
+{
     /**
      * A list of the exception types that should not be reported.
      *
      * @var array
      */
     protected $dontReport = [
-        'Symfony\Component\HttpKernel\Exception\HttpException'
+        HttpException::class,
+        ModelNotFoundException::class,
     ];
 
     /**
@@ -36,11 +42,9 @@ class Handler extends ExceptionHandler {
      */
     public function render($request, Exception $e)
     {
-        if ($this->isHttpException($e))
-        {
-            return $this->renderHttpException($e);
+        if ($e instanceof ModelNotFoundException) {
+            $e = new NotFoundHttpException($e->getMessage(), $e);
         }
-
 
         if (config('app.debug'))
         {
@@ -49,6 +53,8 @@ class Handler extends ExceptionHandler {
 
         return parent::render($request, $e);
     }
+
+
 
     /**
      * Render an exception using Whoops.
@@ -71,9 +77,7 @@ class Handler extends ExceptionHandler {
                     $file = preg_replace('#' . $from . '#', $to, $file, 1);
                 }
 
-                // return "pstorm://$file:$line"; // old way
-                return "phpstorm://open?file=$file&line=$line"; // as of PhpStorm 8 EAP 138.190+, without my app
-                // "idea://open?file=$file&line=$line"; // alternative way, as of PhpStorm 8 EAP 138.190+, without my app
+                return "phpstorm://open?file=$file&line=$line";
 
             }
         );
@@ -86,5 +90,4 @@ class Handler extends ExceptionHandler {
             $e->getHeaders()
         );
     }
-
 }

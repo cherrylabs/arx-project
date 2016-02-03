@@ -1,7 +1,6 @@
 {
-  "name": "Your-project",
-  "version": "0.0.0",
-  "main": "assets/css/main.min.css",
+  "name": "yourproject",
+  "version": "0.0.1",
   "ignore": [
     "**/.*",
     "node_modules",
@@ -10,13 +9,10 @@
     "tests"
   ],
   "dependencies": {
-    "jquery": "~1.10.0",
-    "html5shiv": "*",
-    "bootstrap-sass": "~3.0.0",
-    "angular": "latest",
-    "font-awesome": "latest",
-    "animate.css": "latest",
-    "bootstrap": "~3.3.4",
-    "modernizr": "~2.8.3"
+    "angular": "1.4.7",
+    "animate-sass": "0.6.4",
+    "bootstrap-sass": "3.3.5",
+    "moment": "momentjs#~2.10.6",
+    "underscore": "~1.8.3"
   }
 }
